@@ -65,7 +65,15 @@
     <h1>{{ title }}</h1>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.title }}</li>
+        <li>
+            <strong>Title:</strong> {{ task.title }}<br>
+            <strong>Description:</strong> {{ task.description }}<br>
+            <strong>Due Date:</strong> {{ task.due_date }}<br>
+            <strong>Priority:</strong> {{ task.priority }}
+            {% if not task.completed %}
+                    <a href="{% url 'finish_task' task.id %}"><button>Finish Task</button></a>
+                {% endif %}
+        </li>
         {% endfor %}
     </ul>
     <a href="{% url 'home' %}"><button>Back to Home</button></a>

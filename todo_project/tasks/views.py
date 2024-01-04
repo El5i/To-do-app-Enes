@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 # In tasks/views.py
@@ -27,3 +27,10 @@ def uncompleted_tasks(request):
 def completed_tasks(request):
     tasks = Task.objects.filter(completed=True)
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'title': 'Completed Tasks'})
+
+
+def finish_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.completed = True
+    task.save()
+    return redirect('uncompleted_tasks')
